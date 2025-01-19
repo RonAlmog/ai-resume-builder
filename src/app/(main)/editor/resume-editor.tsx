@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import GeneralInfoForm from "./forms/general-info-form";
+import PersonalInfoForm from "./forms/personal-info-form";
 
 const ResumeEditor = () => {
   return (
@@ -13,8 +14,9 @@ const ResumeEditor = () => {
       </header>
       <main className="relative grow">
         <div className="absolute bottom-0 top-0 flex w-full">
-          <div className="w-full md:w-1/2 p-3">
-            <GeneralInfoForm />
+          <div className="w-full overflow-y-auto p-3 md:w-1/2">
+            {/* <GeneralInfoForm /> */}
+            <PersonalInfoForm />
           </div>
           <div className="grow md:border-r" />
           <div className="hidden w-1/2 md:flex">right</div>
