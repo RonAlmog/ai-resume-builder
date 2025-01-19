@@ -17,8 +17,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export default function GeneralInfoForm({
-  //TODO remove
-  resumeData = "",
+  resumeData,
   setResumeData,
 }: EditorFormProps) {
   const form = useForm<GeneralInfoValues>({
