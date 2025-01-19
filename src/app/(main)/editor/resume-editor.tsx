@@ -1,8 +1,9 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import { useSearchParams } from "next/navigation";
 import { steps } from "./steps";
 import Breadcrumbs from "./breadcrumbs";
+import Footer from "./footer";
 
 const ResumeEditor = () => {
   const searchParams = useSearchParams();
@@ -38,14 +39,7 @@ const ResumeEditor = () => {
           <div className="hidden w-1/2 md:flex">right</div>
         </div>
       </main>
-      <footer className="w-full border-t px-3 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Button variant="secondary">Previous step</Button>
-            <Button>Next step</Button>
-          </div>
-        </div>
-      </footer>
+      <Footer currentStep={currentStep} setCurrentStep={setStep} />
     </div>
   );
 };
