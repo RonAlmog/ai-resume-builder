@@ -6,11 +6,11 @@ export interface EditorFormProps {
   setResumeData: (data: ResumeValues) => void;
 }
 
-// export const resumeDataInclude = {
-//   workExperiences: true,
-//   educations: true,
-// } satisfies Prisma.ResumeInclude;
+export const resumeDataInclude = {
+  workExperiences: true,
+  educations: true,
+} satisfies Prisma.ResumeInclude;
 
-// export type ResumeServerData = Prisma.ResumeGetPayload<{
-//   include: typeof resumeDataInclude;
-// }>;
+export type ResumeServerData = Prisma.ResumeGetPayload<{
+  include: typeof resumeDataInclude;
+}>;

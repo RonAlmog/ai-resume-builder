@@ -30,4 +30,39 @@ export const personalInfoSchema = z.object({
   email: optionalString,
 });
 
-export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
+export type PersonalInfoValues = Omit<
+  z.infer<typeof personalInfoSchema>,
+  "photo"
+>;
+
+export const workExperienceSchema = z.object({
+  workExperiences: z
+    .array(
+      z.object({
+        position: optionalString,
+        company: optionalString,
+        startDate: optionalString,
+        endDate: optionalString,
+        description: optionalString,
+      }),
+    )
+    .optional(),
+});
+
+export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
+
+export const resumeSchema = z.object({
+  ...generalInfoSchema.shape,
+  ...personalInfoSchema.shape,
+  ...workExperienceSchema.shape,
+  // ...educationSchema.shape,
+  // ...skillsSchema.shape,
+  // ...summarySchema.shape,
+  colorHex: optionalString,
+  borderStyle: optionalString,
+});
+
+export type ResumeValues = z.infer<typeof resumeSchema> & {
+  id?: string;
+  photo?: File | string | null;
+};
