@@ -23,8 +23,8 @@ export default function GeneralInfoForm({
   const form = useForm<GeneralInfoValues>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: resumeData.title || "",
-      description: resumeData.description || "",
+      title: resumeData?.title || "",
+      description: resumeData?.description || "",
     },
   });
 
