@@ -30,10 +30,7 @@ export const personalInfoSchema = z.object({
   email: optionalString,
 });
 
-export type PersonalInfoValues = Omit<
-  z.infer<typeof personalInfoSchema>,
-  "photo"
->;
+export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
 
 export const workExperienceSchema = z.object({
   workExperiences: z

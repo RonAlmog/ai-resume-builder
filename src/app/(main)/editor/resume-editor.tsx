@@ -14,7 +14,7 @@ interface ResumeEditorProps {
 
 const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
   const searchParams = useSearchParams();
-  const [resumeData, setResumeData] = useState<ResumeValues>();
+  const [resumeData, setResumeData] = useState<ResumeValues>({});
   //resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
 
   const currentStep = searchParams.get("step") || steps[0].key;
