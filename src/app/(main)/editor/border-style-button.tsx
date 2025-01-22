@@ -20,10 +20,12 @@ export default function BorderStyleButton({
 }: BorderStyleButtonProps) {
   function handleClick() {
     const currentIndex = borderStyle ? borderStyles.indexOf(borderStyle) : 0;
+    // cycle thru all options
     const nextIndex = (currentIndex + 1) % borderStyles.length;
     onChange(borderStyles[nextIndex]);
   }
 
+  // choose a matching icon
   const Icon =
     borderStyle === "square"
       ? Square

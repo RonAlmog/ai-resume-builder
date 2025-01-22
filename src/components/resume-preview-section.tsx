@@ -2,6 +2,7 @@ import { ResumeValues } from "@/lib/validation";
 import ResumePreview from "./resume-preview";
 import { useRef } from "react";
 import ColorPicker from "@/app/(main)/editor/color-picker";
+import BorderStyleButton from "@/app/(main)/editor/border-style-button";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -13,12 +14,18 @@ export default function ResumePreviewSection({
   setResumeData,
 }: ResumePreviewSectionProps) {
   return (
-    <div className="relative hidden w-1/2 md:flex">
-      <div className="absolute left-1 top-1 flex flex-none flex-col gap-3 lg:left-3 lg:top-3">
+    <div className="group relative hidden w-1/2 md:flex">
+      <div className="absolute left-1 top-1 flex flex-none flex-col gap-3 opacity-50 transition-opacity group-hover:opacity-100 lg:left-3 lg:top-3 2xl:opacity-100">
         <ColorPicker
           color={resumeData.colorHex}
           onChange={(color) =>
             setResumeData({ ...resumeData, colorHex: color.hex })
+          }
+        />
+        <BorderStyleButton
+          borderStyle={resumeData.borderStyle}
+          onChange={(borderStyle) =>
+            setResumeData({ ...resumeData, borderStyle })
           }
         />
       </div>
