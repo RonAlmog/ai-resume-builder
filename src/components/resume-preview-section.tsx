@@ -1,6 +1,7 @@
 import { ResumeValues } from "@/lib/validation";
 import ResumePreview from "./resume-preview";
 import { useRef } from "react";
+import ColorPicker from "@/app/(main)/editor/color-picker";
 
 interface ResumePreviewSectionProps {
   resumeData: ResumeValues;
@@ -12,7 +13,15 @@ export default function ResumePreviewSection({
   setResumeData,
 }: ResumePreviewSectionProps) {
   return (
-    <div className="hidden w-1/2 md:flex">
+    <div className="relative hidden w-1/2 md:flex">
+      <div className="absolute left-1 top-1 flex flex-none flex-col gap-3 lg:left-3 lg:top-3">
+        <ColorPicker
+          color={resumeData.colorHex}
+          onChange={(color) =>
+            setResumeData({ ...resumeData, colorHex: color.hex })
+          }
+        />
+      </div>
       <div className="flex w-full justify-center overflow-y-auto bg-secondary p-3">
         <ResumePreview
           resumeData={resumeData}

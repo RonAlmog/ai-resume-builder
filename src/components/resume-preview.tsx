@@ -49,8 +49,18 @@ interface ResumeSectionProps {
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
   console.log({ resumeData });
-  const { firstName, photo, lastName, jobTitle, city, country, phone, email } =
-    resumeData;
+  const {
+    firstName,
+    photo,
+    lastName,
+    jobTitle,
+    city,
+    country,
+    phone,
+    email,
+    colorHex,
+    borderStyle,
+  } = resumeData;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
