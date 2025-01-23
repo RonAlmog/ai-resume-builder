@@ -87,7 +87,7 @@ export default function PersonalInfoForm({
                     variant="secondary"
                     type="button"
                     onClick={() => {
-                      fieldValues.onChange(null);
+                      fieldValues.onChange(null); // null is the sign for backend to delete.
                       if (photoInputRef.current) {
                         photoInputRef.current.value = "";
                       }
