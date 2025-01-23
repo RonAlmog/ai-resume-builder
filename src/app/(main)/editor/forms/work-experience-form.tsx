@@ -168,7 +168,7 @@ function WorkExperienceItem({
     <div
       className={cn(
         "space-y-3 rounded-md border bg-background p-3",
-        isDragging && "z-100 relative cursor-grab shadow-xl",
+        isDragging && "relative z-50 cursor-grab shadow-xl",
       )}
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
