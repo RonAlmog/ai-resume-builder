@@ -5,6 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// in order to know if a photo is new or the same as old,
+// we want to compare files. JSON.stringify alone cannot do that,
+// unless we provide "replacer"
+export function fileReplacer(key: unknown, value: unknown) {
+  return value instanceof File
+    ? {
+        name: value.name,
+        size: value.size,
+        type: value.type,
+        lastModified: value.lastModified,
+      }
+    : value;
+}
+
 // export function mapToResumeValues(data: ResumeServerData): ResumeValues {
 //   return {
 //     id: data.id,
