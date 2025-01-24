@@ -1,6 +1,5 @@
 import { ResumeValues } from "@/lib/validation";
 import ResumePreview from "./resume-preview";
-import { useRef } from "react";
 import ColorPicker from "@/app/(main)/editor/color-picker";
 import BorderStyleButton from "@/app/(main)/editor/border-style-button";
 import { cn } from "@/lib/utils";
