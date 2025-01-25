@@ -11,6 +11,8 @@ export const resumeDataInclude = {
   educations: true,
 } satisfies Prisma.ResumeInclude;
 
+// creating a type that include the resume plus
+// the 2 "includes", work exp and educations.
 export type ResumeServerData = Prisma.ResumeGetPayload<{
   include: typeof resumeDataInclude;
 }>;
