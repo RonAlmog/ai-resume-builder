@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "4mb",
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: process.env.VERCEL_BLOB_URL!,
+      },
+    ],
+  },
 };
 
 export default nextConfig;
