@@ -2,6 +2,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,6 +14,7 @@ import { summarySchema, SummaryValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import GenerateSummaryButton from "./generate-summary-button";
 
 export default function SummaryForm({
   resumeData,
@@ -60,10 +62,16 @@ export default function SummaryForm({
                     placeholder="A briefe engaging text about yourself"
                   />
                 </FormControl>
-                {/* <FormDescription>
-                  A briefe engaging text about yourself
-                </FormDescription> */}
+                <FormDescription>
+                  A briefe, engaging text about yourself
+                </FormDescription>
                 <FormMessage />
+                <GenerateSummaryButton
+                  resumeData={resumeData}
+                  onSummaryGenerated={(summary) =>
+                    form.setValue("summary", summary)
+                  }
+                />
               </FormItem>
             )}
           />
