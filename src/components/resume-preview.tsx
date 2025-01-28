@@ -48,7 +48,7 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
-  console.log({ resumeData });
+  // console.log({ resumeData });
   const {
     firstName,
     photo,
