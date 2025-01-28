@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteSummary } from "@/app/actions/delete-resume";
 import LoadingButton from "@/components/loading-button";
 import ResumePreview from "@/components/resume-preview";
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   const wasUpdated = resume.updatedAt !== resume.createdAt;
 
   return (
-    <div className="group rounded-lg border border-transparent bg-secondary p-2 transition-colors hover:border-border">
+    <div className="group relative rounded-lg border border-transparent bg-secondary p-2 transition-colors hover:border-border">
       <div className="space-y-3">
         <Link
           href={`/editor?resumeId=${resume.id}`}
@@ -53,14 +54,113 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
         </Link>
         <Link
           href={`/editor?resumeId=${resume.id}`}
-          className="inline-block w-full"
+          className="relative inline-block w-full"
         >
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
-            className="shadow-sm transition-shadow group-hover:shadow-lg"
+            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
           />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
         </Link>
       </div>
+      <MoreMenu resumeId={resume.id} />
     </div>
+  );
+}
+
+interface MoreMenuProps {
+  resumeId: string;
+}
+
+function MoreMenu({ resumeId }: MoreMenuProps) {
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            <MoreVertical className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+            onClick={() => setShowDeleteConfirmation(true)}
+          >
+            <Trash2 className="size-4" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DeleteConfirmationDialog
+        resumeId={resumeId}
+        open={showDeleteConfirmation}
+        onOpenChange={setShowDeleteConfirmation}
+      />
+    </>
+  );
+}
+
+interface DeleteConfirmationDialogProps {
+  resumeId: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+function DeleteConfirmationDialog({
+  resumeId,
+  open,
+  onOpenChange,
+}: DeleteConfirmationDialogProps) {
+  const { toast } = useToast();
+  // when we call a server action from client component,
+  // and we have revalidatePath, it should be wrapped in startTransition.
+  // this way the isPending will include the time it takes to revalidate.
+  const [isPending, startTransition] = useTransition();
+
+  async function handleDelete() {
+    startTransition(async () => {
+      try {
+        await deleteSummary(resumeId); // call action
+        onOpenChange(false); // close the dialog
+      } catch (error) {
+        console.error(error);
+        toast({
+          variant: "destructive",
+          description: "Could not delete resume",
+        });
+      }
+    });
+  }
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Delete resume?</DialogTitle>
+        </DialogHeader>
+        <DialogDescription>
+          Are you sure you want to delete this resume? This action cannot be
+          undone.
+        </DialogDescription>
+        <DialogFooter>
+          <LoadingButton
+            variant="destructive"
+            onClick={handleDelete}
+            className="ml-2"
+            loading={isPending}
+          >
+            Delete
+          </LoadingButton>
+          <Button variant="secondary" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
