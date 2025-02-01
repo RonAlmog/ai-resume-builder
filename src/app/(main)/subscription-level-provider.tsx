@@ -22,6 +22,7 @@ export default function SubscriptionLevelProvider({
   );
 }
 
+// custom hook for context item that might be undefined
 export function useSubscriptionLevel() {
   const context = SubscriptionLevelContext;
   if (context === undefined) {
