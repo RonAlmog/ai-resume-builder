@@ -77,13 +77,13 @@ model Education {
 
 //https://docs.stripe.com/api/subscriptions
 model UserSubscription {
-  id                       String   @id @default(cuid())
-  userId                   String   @unique
-  stripeCustomerId         String   @unique
-  stripeSubscriptionId     String   @unique
-  stripePriceId            String
-  stripeCurrentPeriodStart DateTime
-  stripeCancelAtPeriodEnd  Boolean  @default(false)
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  stripeCustomerId        String   @unique
+  stripeSubscriptionId    String   @unique
+  stripePriceId           String
+  stripeCurrentPeriodEnd  DateTime
+  stripeCancelAtPeriodEnd Boolean  @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
