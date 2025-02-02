@@ -1,6 +1,6 @@
 "use server";
 
-import { canCreateResume } from "@/lib/permissions";
+import { canCreateResume, canUseCustomizations } from "@/lib/permissions";
 import prisma from "@/lib/prisma";
 import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
@@ -39,6 +39,16 @@ export async function saveResume(values: ResumeValues) {
 
   if (id && !existingResume) {
     throw new Error("Resume not found");
+  }
+
+  const hasCustomization =
+    (resumeValues.borderStyle &&
+      resumeValues.borderStyle !== existingResume?.borderStyle) ||
+    (resumeValues.colorHex &&
+      resumeValues.colorHex !== existingResume?.colorHex);
+
+  if (hasCustomization && !canUseCustomizations(subscriptionLevel)) {
+    throw new Error("Customization not allowed for this subscription level");
   }
 
   // undefined = never uploaded.
