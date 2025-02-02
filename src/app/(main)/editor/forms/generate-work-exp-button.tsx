@@ -28,6 +28,9 @@ import { WandSparklesIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { generateWorkExperience } from "@/app/actions/generate-work-exp";
+import { useSubscriptionLevel } from "../../subscription-level-provider";
+import usePremiumModal from "@/hooks/use-premium-modal";
+import { canUseAITools } from "@/lib/permissions";
 
 interface GenerateWorkExperienceButtonProps {
   onWorkExperienceGenerated: (workExperience: WorkExperience) => void;
@@ -36,6 +39,8 @@ interface GenerateWorkExperienceButtonProps {
 export default function GenerateWorkExperienceButton({
   onWorkExperienceGenerated,
 }: GenerateWorkExperienceButtonProps) {
+  const subscriptionLevel = useSubscriptionLevel();
+  const premiumModal = usePremiumModal();
   const [showInputDialog, setShowInputDialog] = useState(false);
 
   return (
@@ -44,6 +49,10 @@ export default function GenerateWorkExperienceButton({
         variant="outline"
         type="button"
         onClick={() => {
+          if (!canUseAITools(subscriptionLevel)) {
+            premiumModal.setOpen(true);
+            return;
+          }
           setShowInputDialog(true);
         }}
       >
