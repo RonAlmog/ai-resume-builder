@@ -7,6 +7,9 @@ import {
 import { PaletteIcon } from "lucide-react";
 import { useState } from "react";
 import { Color, ColorChangeHandler, TwitterPicker } from "react-color";
+import { useSubscriptionLevel } from "../subscription-level-provider";
+import usePremiumModal from "@/hooks/use-premium-modal";
+import { canUseCustomizations } from "@/lib/permissions";
 
 interface ColorPickerProps {
   color: Color | undefined;
@@ -14,6 +17,9 @@ interface ColorPickerProps {
 }
 
 export default function ColorPicker({ color, onChange }: ColorPickerProps) {
+  const subscriptionLevel = useSubscriptionLevel();
+  const premuimModal = usePremiumModal();
+
   const [showPopover, setShowPopover] = useState(false);
 
   return (
@@ -23,7 +29,13 @@ export default function ColorPicker({ color, onChange }: ColorPickerProps) {
           variant="outline"
           size="icon"
           title="Change resume color"
-          onClick={() => setShowPopover(true)}
+          onClick={() => {
+            if (!canUseCustomizations(subscriptionLevel)) {
+              premuimModal.setOpen(true);
+              return;
+            }
+            setShowPopover(true);
+          }}
         >
           <PaletteIcon className="size-5" />
         </Button>

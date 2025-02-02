@@ -1,7 +1,7 @@
 "use client";
 
 import { SubscriptionLevel } from "@/lib/subscription";
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode, useContext } from "react";
 
 const SubscriptionLevelContext = createContext<SubscriptionLevel | undefined>(
   undefined,
@@ -24,7 +24,7 @@ export default function SubscriptionLevelProvider({
 
 // custom hook for context item that might be undefined
 export function useSubscriptionLevel() {
-  const context = SubscriptionLevelContext;
+  const context = useContext(SubscriptionLevelContext);
   if (context === undefined) {
     throw new Error(
       "useSubscriptionLevel must be used within a SubscriptionLevelProvider",
