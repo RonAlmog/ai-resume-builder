@@ -7,7 +7,6 @@ import { Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { set } from "date-fns";
 import { createCheckoutSession } from "@/app/actions/create-checkout-session";
 
 const premiumFeatures = ["AI tools", "Up to 3 resumes"];
