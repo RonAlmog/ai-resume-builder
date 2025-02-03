@@ -11,6 +11,9 @@ export async function createCheckoutSession(priceId: string) {
     throw new Error("Unauthorized");
   }
 
+  // on "checkout.session.completed" (stripe webhook) we will update the
+  // user's private metadata with the stripe customer id.
+  // here, when creating a new session, we pass taht stripeCustomerId to stripe, to avoid duplication.
   const stripeCustomerId = user.privateMetadata.stripeCustomerId as
     | string
     | undefined;
