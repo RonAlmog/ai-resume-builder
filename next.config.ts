@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.VERCEL_BLOB_URL!,
+        hostname: "google.ca", // process.env.VERCEL_BLOB_URL!,
       },
     ],
   },
