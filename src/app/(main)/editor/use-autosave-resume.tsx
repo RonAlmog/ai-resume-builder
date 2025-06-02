@@ -64,7 +64,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
           variant: "destructive",
           description: (
             <div className="space-y-3">
-              <p>Could not save changes</p>
+              <p>{`Could not save changes ${error}`}</p>
               <Button
                 variant="secondary"
                 onClick={() => {
