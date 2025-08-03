@@ -25,7 +25,7 @@ export default function Navbar() {
             className="rounded-full"
           />
           <span className="text-xl font-bold tracking-tight">
-            AI Resume Builder
+            AI Resume Builderz
           </span>
         </Link>
         <div className="flex items-center gap-3">
